@@ -1,24 +1,51 @@
-# README
+#テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column           | Type     | Options     |
+| ---------------- | -------- | ----------- |
+| nickname         | string   | null: false |
+| email            | string   | null: false |
+| password         | string   | null: false |
+| kanji_first_name | string   | null: false |
+| kanji_last_name  | text     | null: false |
+| kana_first_name  | text     | null: false |
+| kana_last_name   | text     | null: false |
+| birth_date       | datetime | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :comments
+- has_many :items
 
-* Configuration
+## comments テーブル
 
-* Database creation
+| Column    | Type       | Options                         |
+| --------- | ---------- | ------------------------------- |
+| text      | text       | null: false                     |
+| user      | references | null: false , foreign_key: true |
+| item      | references | null: false , foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :users
+- belongs_to :items
 
-* Services (job queues, cache servers, search engines, etc.)
+## items テーブル
 
-* Deployment instructions
+| Column        | Type       | Options                         |
+| ------------- | ---------- | ------------------------------- |
+| title         | string     | null: false                     |
+| explain       | text       | null: false                     |
+| category      | string     | null: false                     |
+| condition     | string     | null: false                     |
+| price         | integer    | null: false                     |
+| delivery_fee  | integer    | null: false                     |
+| item_region   | string     | null: false                     |
+| dispatch_date | datetime   | null: false                     |
+| user          | references | null: false, foreign_key: true  |
 
-* ...
+### Association
+
+- has_many :comments
+- belongs_to :users
