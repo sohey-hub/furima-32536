@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   validates :condition_id, numericality: { other_than: 1 }
   validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: "には半角数字を使用してください" }
   validates :delivery_fee_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 0 }
+  validates :prefecture_id, numericality: { other_than: 1 }
   validates :delivery_date_id, numericality: { other_than: 1 }
 
   has_one_attached :image
