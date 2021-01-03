@@ -13,4 +13,7 @@ validates_format_of :password, with: PASSWORD_REGEX, message: 'には英字と�
   validates :kana_last_name, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "には全角カタカナを使用してください"}
   validates :birth_date, presence: true
 
+  has_many :item
+  has_many :purchase_record
+
 end
