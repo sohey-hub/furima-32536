@@ -59,14 +59,26 @@ RSpec.describe Item, type: :model do
          expect(@item.errors.full_messages).to include("Delivery date must be other than 1")
        end
 
+       it "価格が空では登録出来ないこと" do
+         @item.price = nil
+         @item.valid?
+         expect(@item.errors.full_messages).to include("Price can't be blank")
+       end
+
        it "価格は半角数字以外を使用すると登録出来ないこと" do
          @item.price = 'aaaaaa'
          @item.valid?
          expect(@item.errors.full_messages).to include("Price には半角数字を使用してください")
        end
 
-       it "価格の範囲が300円〜9,999,999円の範囲外の場合は登録出来ないこと" do
+       it "価格が300円を下回っている場合、登録出来ないこと" do
          @item.price = 250
+         @item.valid?
+         expect(@item.errors.full_messages).to include("Price は範囲外の数値です")
+       end
+
+       it "価格が9,999,999円を上回っている場合、登録出来ないこと" do
+         @item.price = 99999999
          @item.valid?
          expect(@item.errors.full_messages).to include("Price は範囲外の数値です")
        end
