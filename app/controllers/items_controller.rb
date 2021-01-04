@@ -1,12 +1,16 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, expect: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
  
   def index
     @items = Item.all
   end
 
   def new
-    @item = Item.new
+    if user_signed_in?
+     @item = Item.new
+    else
+      redirect_to new_session_path
+    end
   end
 
   def create
