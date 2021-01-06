@@ -16,10 +16,10 @@ class ItemsController < ApplicationController
     else
       render new_item_path
     end
+  end
 
-    def show
-    end
-
+  def show
+      @item = Item.find(params[:id])
   end
 
   private
