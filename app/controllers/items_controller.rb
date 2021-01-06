@@ -17,6 +17,9 @@ class ItemsController < ApplicationController
       render new_item_path
     end
 
+    def show
+    end
+
   end
 
   private
