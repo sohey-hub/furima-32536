@@ -1,7 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :purchase_user, only: [:index]
+
   def index
-    @item = Item.find(params[:item_id])
-    @user_item = UserItem.new
+    # @item = Item.find(params[:item_id])
+    # @user_item = UserItem.new
   end
 
   def create
@@ -29,5 +31,20 @@ class OrdersController < ApplicationController
         card: user_item_params[:token],
         currency: 'jpy' 
       )
+  end
+
+  def purchase_user
+    @item = Item.find(params[:item_id])
+    @user_item = UserItem.new
+    if user_signed_in? 
+      unless @item.user == current_user
+        render :index
+      else
+        redirect_to root_path
+      end
+    else
+      redirect_to new_user_session_path
+    end
+    
   end
 end
