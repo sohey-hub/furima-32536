@@ -5,6 +5,9 @@ Faker::Config.locale = 'ja'
     prefecture_id   {Faker::Number.between(from:2, to: 4)}
     city_name       {Faker::Address.city}
     house_number    {Faker::Address.building_number}
-    tel_number      {Faker::PhoneNumber.phone_number}
+    tel_number      {"0"+Faker::PhoneNumber.subscriber_number(length: 10)}
+    token           {"tok_abcdefghijk00000000000000000"}
+    user_id         {Faker::Number.number}
+    item_id         {Faker::Number.number}
   end
 end
