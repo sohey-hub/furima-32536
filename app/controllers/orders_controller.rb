@@ -2,8 +2,6 @@ class OrdersController < ApplicationController
   before_action :purchase_user, only: [:index]
 
   def index
-    # @item = Item.find(params[:item_id])
-    # @user_item = UserItem.new
   end
 
   def create
