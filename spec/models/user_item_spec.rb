@@ -19,6 +19,12 @@ RSpec.describe UserItem, type: :model do
         expect(@user_item.errors.full_messages).to include("Postal code can't be blank")
       end
 
+      it "郵便番号がハイフンなしでは登録できないこと"  do
+        @user_item.postal_code = 1234567
+        @user_item.valid?
+        expect(@user_item.errors.full_messages).to include("Postal code にはハイフン(-)を必ず入れてください")
+      end
+
       it "配送先の地域が'---'では登録できないこと" do
         @user_item.prefecture_id = 1
         @user_item.valid?
@@ -37,16 +43,42 @@ RSpec.describe UserItem, type: :model do
         expect(@user_item.errors.full_messages).to include("House number can't be blank")
       end
 
-      it "電話番号が空では登録できないこと"  do
+      it "電話番号が空では登録できないこと" do
         @user_item.tel_number = nil
         @user_item.valid?
         expect(@user_item.errors.full_messages).to include("Tel number can't be blank")
+      end
+
+      it "電話番号が１２桁以上では登録できないこと" do
+        @user_item.tel_number = 123456789123456
+        binding.pry
+        @user_item.valid?
+        expect(@user_item.errors.full_messages).to include("TEL number には１１桁の数字のみを入力してください")
+       end
+
+      it "電話番号が英数混合では登録できないこと" do
+        @user_item.tel_number = "123456789abc"
+        binding.pry
+        @user_item.valid?
+        expect(@user_item.errors.full_messages).to include("TEL number には１１桁の数字のみを入力してください")
       end
 
       it "tokenが空では登録できないこと" do
         @user_item.token = nil
         @user_item.valid?
         expect(@user_item.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it "user_idが空では登録できないこと"  do
+        @user_item.user_id = nil
+        @user_item.valid?
+        expect(@user_item.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空では登録できないこと" do
+        @user_item.item_id = nil
+        @user_item.valid?
+        expect(@user_item.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

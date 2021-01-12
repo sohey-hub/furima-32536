@@ -7,7 +7,7 @@ class UserItem
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :city_name
     validates :house_number
-    validates :tel_number,    format: { with: /\A0\d{10}\z/ }
+    validates :tel_number,    format: { with: /\A\d{11}\z/, message: "には１１桁の数字のみを入力してください" }
     validates :token
     validates :user_id
     validates :item_id
