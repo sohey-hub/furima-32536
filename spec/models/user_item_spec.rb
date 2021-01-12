@@ -51,16 +51,14 @@ RSpec.describe UserItem, type: :model do
 
       it "電話番号が１２桁以上では登録できないこと" do
         @user_item.tel_number = 123456789123456
-        binding.pry
         @user_item.valid?
-        expect(@user_item.errors.full_messages).to include("TEL number には１１桁の数字のみを入力してください")
-       end
+        expect(@user_item.errors.full_messages).to include("Tel number には１１桁の数字のみを入力してください")
+      end
 
       it "電話番号が英数混合では登録できないこと" do
         @user_item.tel_number = "123456789abc"
-        binding.pry
         @user_item.valid?
-        expect(@user_item.errors.full_messages).to include("TEL number には１１桁の数字のみを入力してください")
+        expect(@user_item.errors.full_messages).to include("Tel number には１１桁の数字のみを入力してください")
       end
 
       it "tokenが空では登録できないこと" do
