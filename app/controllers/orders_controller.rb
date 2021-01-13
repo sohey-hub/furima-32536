@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
-  before_action :item_find, only: [:create, :purchase_user]
   before_action :purchase_user, only: [:index]
 
   def index
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @user_item = UserItem.new(user_item_params)
     if @user_item.valid?
         pay_item
@@ -32,6 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def purchase_user
+    @item = Item.find(params[:item_id])
     @user_item = UserItem.new
     if user_signed_in? && !@item.order.present?
       unless @item.user == current_user
@@ -42,9 +43,5 @@ class OrdersController < ApplicationController
     else
       redirect_to new_user_session_path
     end
-  end
-
-  def item_find
-    @item = Item.find(params[:item_id])
   end
 end
