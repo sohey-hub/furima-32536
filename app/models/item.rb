@@ -1,17 +1,4 @@
 class Item < ApplicationRecord
-
-  
-  has_one_attached :image
-  belongs_to :user
-  has_one :purchase_record
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to_active_hash :category
-  belongs_to_active_hash :condition
-  belongs_to_active_hash :delivery_fee
-  belongs_to_active_hash :prefecture
-  belongs_to_active_hash :delivery_date
-
-
   with_options presence: true do
     validates :image
     validates :title
@@ -23,5 +10,15 @@ class Item < ApplicationRecord
     validates :delivery_fee_id, numericality: { other_than: 1 }
     validates :prefecture_id, numericality: { other_than: 1 }
     validates :delivery_date_id, numericality: { other_than: 1 }
-   end
+  end
+   
+  has_one_attached :image
+  belongs_to :user
+  has_one :order
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :delivery_fee
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :delivery_date
 end
