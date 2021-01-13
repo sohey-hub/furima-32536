@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
 
   def correct_user
     @item = Item.find(params[:id])
-    if user_signed_in? && @item.user == current_user
+    if user_signed_in? && @item.user == current_user && !@item.order.present?
       render :edit
     else 
       redirect_to root_path

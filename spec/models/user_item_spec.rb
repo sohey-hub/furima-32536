@@ -10,11 +10,17 @@ RSpec.describe UserItem, type: :model do
       it 'postal_codeとprefecture_id,city_nameとhouse_number,tel_numberとtoken,user_idとitem_idが存在すれば登録できること' do
         expect(@user_item).to be_valid
       end
+      
+      it "building_nameは空でも登録できること" do
+        @user_item.building_name = nil
+        expect(@user_item).to be_valid
+      end
     end
 
     context '商品購入ができない時' do
       it "郵便番号が空では登録できないこと" do
         @user_item.postal_code = nil
+        binding.pry
         @user_item.valid?
         expect(@user_item.errors.full_messages).to include("Postal code can't be blank")
       end
